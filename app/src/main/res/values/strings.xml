@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ProjetoAulaN</string>
+    <string name="txtCalculadoraDeGorjeta">Calculadora De Gorjeta</string>
+    <string name="txtValor">Valor:</string>
+    <string name="txtGorjeta">Gorjeta:</string>
+    <string name="txtTotal">Total:</string>
+    <string name="txtDesenho">Desenho</string>
+</resources>
