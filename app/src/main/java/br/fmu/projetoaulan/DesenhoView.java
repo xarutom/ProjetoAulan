@@ -63,4 +63,22 @@ public class DesenhoView extends View {
         invalidate();
         return true;
     }
+    private void touchStarted(float x, float y, int lineId){
+        Path path;
+        Point point;
+        if (pathMap.containsKey(lineId)){
+            path = pathMap.get(lineId);
+            path.reset();
+            point = new Point();
+            previousPointMap.put(lineId,point);
+        }else{
+            path = new Path();
+            pathMap.put(lineId, point);
+            point = new Point();
+            previousPointMap.put(lineId, point);
+        }
+        path.moveTo(x, y);
+        point.x = (int)x;
+        point.y = (int)y;
+    }
 }
