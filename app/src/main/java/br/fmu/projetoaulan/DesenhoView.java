@@ -11,6 +11,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.HashMap;
@@ -42,7 +43,7 @@ public class DesenhoView extends View {
         bitmap.eraseColor(Color.WHITE);
     }
     @Override
-    protected void OnDraw(Canvas canvas){
+    protected void onDraw(Canvas canvas){
         canvas.drawBitmap(bitmap, 0, 0, paintScreen);
         for(Integer key: pathMap.keySet()){
             canvas.drawPath(pathMap.get(key), paintLine);
@@ -53,8 +54,8 @@ public class DesenhoView extends View {
         int action = event.getActionMasked();
         int actionIndex = event.getActionIndex();
         if(action==MotionEvent.ACTION_DOWN || action==MotionEvent.ACTION_POINTER_DOWN){
-            touchStarted(event.getX(actionIndex)),
-                event.getPointerId(actionIndex);
+            touchStarted(event.getX(actionIndex), event.getY(actionIndex),
+                event.getPointerId(actionIndex));
         }else if( action==MotionEvent.ACTION_POINTER_UP || action==MotionEvent.ACTION_UP){
             touchEnded(event.getPointerId(actionIndex));
         }else{
@@ -73,7 +74,7 @@ public class DesenhoView extends View {
             previousPointMap.put(lineId,point);
         }else{
             path = new Path();
-            pathMap.put(lineId, point);
+            pathMap.put(lineId, path);
             point = new Point();
             previousPointMap.put(lineId, point);
         }
