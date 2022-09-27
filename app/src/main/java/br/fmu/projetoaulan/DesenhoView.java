@@ -80,5 +80,27 @@ public class DesenhoView extends View {
         path.moveTo(x, y);
         point.x = (int)x;
         point.y = (int)y;
+    } private void touchMoved(MotionEvent event){
+        int i = 0;
+        int pointerId = event.getPointerId(i);
+        int pointerIndex = event.findPointerIndex(pointerId);
+        if(pathMap.containsKey(pointerId)){
+            float newX = event.getX(pointerIndex);
+            float newY = event.getY(pointerIndex);
+            Path path = pathMap.get(pointerId);
+            Point point = previousPointMap.get(pointerId);
+            float deltaX = Math.abs(newX-point.x);
+            float deltaY = Math.abs(newY-point.y);
+            if(deltaX>=TOUCH_TOLERANCE||deltaY>=TOUCH_TOLERANCE){
+                path.quadTo(point.x,point.y, (newX+point.x)/2, (newY+point.y)/2);
+                point.x = (int) newX;
+                point.y = (int) newY;
+            }
+        }
+    }
+    private void touchEnded(int lineid){
+        Path path = pathMap.get(lineid);
+        bitmapCanvas.drawPath(path, paintLine);
+        path.reset();
     }
 }
